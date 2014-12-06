@@ -1,10 +1,8 @@
 LOCAL_PATH := $(call my-dir)
- 
-include $(CLEAR_VARS)
- 
-LOCAL_LDLIBS    := -llog
- 
-LOCAL_MODULE    := main
-LOCAL_SRC_FILES := main.c
- 
-include $(BUILD_SHARED_LIBRARY)
+include $(CLEAR_VARS) 
+# give module name
+LOCAL_MODULE    := hello_world  
+# list your C files to compile
+LOCAL_SRC_FILES := helloworld.c
+# this option will build executables instead of building library for android application.
+include $(BUILD_EXECUTABLE)
