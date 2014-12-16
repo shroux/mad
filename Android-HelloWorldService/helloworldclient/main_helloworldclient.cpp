@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
         } while(true);
 
         shw = android::interface_cast<IHelloWorldClient>(binder);
-        shw->hellothere("fun");
+        shw->hellothere();
 
 	return(0);
 }
