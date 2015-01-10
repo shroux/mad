@@ -20,10 +20,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AllRecordings"
-            android:label="@string/title_activity_all_recordings" >
-        </activity>
-        <activity
             android:name=".ListRecording"
             android:label="@string/title_activity_list_recording" >
         </activity>

@@ -3,6 +3,9 @@ package com.example.thomas.recorder;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.zip.Inflater;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +18,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.view.LayoutInflater;
@@ -206,7 +210,7 @@ public class MainActivity extends Activity {
      * @param v
      */
     public void listRecording(View v) {
-        Intent intent = new Intent(MainActivity.this, AllRecordings.class);
+        Intent intent = new Intent(MainActivity.this, ListRecording.class);
         startActivity(intent);
     }
 
