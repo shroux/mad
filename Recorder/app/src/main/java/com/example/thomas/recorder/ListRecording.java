@@ -57,7 +57,6 @@ public class ListRecording extends ListActivity {
         handler_sickBar = new Handler();
         sbar = (SeekBar) findViewById(R.id.seekBarId);
         sbar.setOnSeekBarChangeListener(progressListner);
-        stop = (Button) findViewById(R.id.stopS);
         play = (Button) findViewById(R.id.playS);
         pause = (Button) findViewById(R.id.pauseS);
         streamSound = (TextView) findViewById(R.id.name);

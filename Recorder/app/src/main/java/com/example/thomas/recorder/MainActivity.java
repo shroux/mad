@@ -25,6 +25,10 @@ import android.view.LayoutInflater;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
+import com.dropbox.client2.android.*;
+import com.dropbox.client2.session.*;
+import com.dropbox.client2.*;
+import java.io.*;
 
 public class MainActivity extends Activity {
 
@@ -37,6 +41,12 @@ public class MainActivity extends Activity {
     private View removeButton;
     private View listButton;
 
+    final static private String APP_KEY = "clzd8vz5fzxvqve";
+    final static private String APP_SECRET = "0leed7w226g8dwh";
+    final static private Session.AccessType ACCESS_TYPE = Session.AccessType.DROPBOX;
+    private DropboxAPI<AndroidAuthSession> mDBApi;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +56,12 @@ public class MainActivity extends Activity {
         removeButton = findViewById(R.id.remove);
         listButton = findViewById(R.id.list);
         stopButton = findViewById(R.id.stop);
+
+
+        AppKeyPair appKeys = new AppKeyPair(APP_KEY, APP_SECRET);
+        AndroidAuthSession session = new AndroidAuthSession(appKeys, ACCESS_TYPE);
+        mDBApi = new DropboxAPI<AndroidAuthSession>(session);
+        mDBApi.getSession().startOAuth2Authentication(MainActivity.this);
     }
 
     /**
@@ -112,7 +128,7 @@ public class MainActivity extends Activity {
         AlertDialog.Builder inputDialog = new AlertDialog.Builder(MainActivity.this);
         inputDialog.setView(view);
         inputDialog.setTitle("Choice of name.");
-        inputDialog.setPositiveButton("Save",
+        inputDialog.setPositiveButton("Save On Phone",
             new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog, int which)
@@ -157,6 +173,28 @@ public class MainActivity extends Activity {
                 }
             }
         );
+
+        inputDialog.setNeutralButton("Save On Cloud",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String name = nameEditText.getText().toString().replaceAll(" ", "").trim();
+
+                        if (name.length() != 0) {
+                            File tempFile = (File) v.getTag();
+                            dropBox upload = new dropBox(MainActivity.this, mDBApi, "/MAD-B/", tempFile, name+".3gp");
+                            upload.execute();
+                        } else {
+                            Toast message = Toast.makeText(MainActivity.this,
+                                    "Must have a name.", Toast.LENGTH_SHORT);
+                            message.setGravity(Gravity.CENTER,
+                                    message.getXOffset() / 2,
+                                    message.getYOffset() / 2);
+                            message.show();
+                        }
+                    }
+                }
+        );
+
         inputDialog.setNegativeButton("Cancel", null);
         inputDialog.show();
     }
@@ -185,6 +223,15 @@ public class MainActivity extends Activity {
         stopButton.setEnabled(false);
         removeButton.setEnabled(false);
         saveButton.setEnabled(false);
+
+        if (mDBApi.getSession().authenticationSuccessful()) {
+            try {
+                mDBApi.getSession().finishAuthentication();
+                String accessToken = mDBApi.getSession().getOAuth2AccessToken();
+            } catch (IllegalStateException e) {
+                Toast message = Toast.makeText(MainActivity.this, "Error authenticating Dropbox", Toast.LENGTH_SHORT);
+            }
+        }
     }
 
 
@@ -214,4 +261,6 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
+
 }
+
