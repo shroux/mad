@@ -46,7 +46,6 @@ public class ListRecording extends ListActivity {
     private Handler handler_sickBar;
     private Button play;
     private Button pause;
-    private Button stop;
     private TextView streamSound;
     private ListView lv;
 
