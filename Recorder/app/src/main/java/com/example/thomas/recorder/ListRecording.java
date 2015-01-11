@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.view.View.OnClickListener;
 import android.widget.SeekBar;
@@ -148,7 +149,7 @@ public class ListRecording extends ListActivity {
     public static class S_ViewHolder
     {
         TextView title;
-        Button remove;
+        ImageButton remove;
     }
 
     public class nodeAdapter extends ArrayAdapter<String> {
@@ -172,7 +173,7 @@ public class ListRecording extends ListActivity {
                 v = inflater.inflate(R.layout.node, null);
                 vh = new S_ViewHolder();
                 vh.title = (TextView) v.findViewById(R.id.title);
-                vh.remove = (Button) v.findViewById(R.id.remove);
+                vh.remove = (ImageButton) v.findViewById(R.id.remove);
                 v.setTag(vh);
             }
             else

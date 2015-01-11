@@ -5,20 +5,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.thomas.recorder.ListRecording"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:background="@color/primary_dark_material_dark">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            />
+    </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center"
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="- - -"
             android:id="@+id/name"
+            android:textColor="@color/background_material_light"
             android:textSize="30dp"/>
 
         <LinearLayout
