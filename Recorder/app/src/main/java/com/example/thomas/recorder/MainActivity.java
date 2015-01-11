@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ public class MainActivity extends Activity {
     private View saveButton;
     private View removeButton;
     private View listButton;
+    private View loginButton;
 
     final static private String APP_KEY = "clzd8vz5fzxvqve";
     final static private String APP_SECRET = "0leed7w226g8dwh";
@@ -56,12 +58,11 @@ public class MainActivity extends Activity {
         removeButton = findViewById(R.id.remove);
         listButton = findViewById(R.id.list);
         stopButton = findViewById(R.id.stop);
-
+        loginButton = findViewById(R.id.login);
 
         AppKeyPair appKeys = new AppKeyPair(APP_KEY, APP_SECRET);
         AndroidAuthSession session = new AndroidAuthSession(appKeys, ACCESS_TYPE);
         mDBApi = new DropboxAPI<AndroidAuthSession>(session);
-        mDBApi.getSession().startOAuth2Authentication(MainActivity.this);
     }
 
     /**
@@ -228,6 +229,7 @@ public class MainActivity extends Activity {
             try {
                 mDBApi.getSession().finishAuthentication();
                 String accessToken = mDBApi.getSession().getOAuth2AccessToken();
+                loginButton.setEnabled(false);
             } catch (IllegalStateException e) {
                 Toast message = Toast.makeText(MainActivity.this, "Error authenticating Dropbox", Toast.LENGTH_SHORT);
             }
@@ -261,6 +263,10 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
+    public void loginDrop(View v) {
+        if (!mDBApi.getSession().isLinked())
+            mDBApi.getSession().startOAuth2Authentication(MainActivity.this);
+    }
 
 }
 

@@ -41,6 +41,7 @@
             android:onClick="removeRecording"
             />
 
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="fill_parent"
@@ -53,4 +54,20 @@
             android:onClick="listRecording"
             />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/login"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Login Dropbox"
+            android:onClick="loginDrop"
+            />
+
+    </LinearLayout>
+
+
+
 </LinearLayout>
